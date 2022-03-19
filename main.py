@@ -1,7 +1,6 @@
 from tkinter import *
 
 
-
 class Calculator:
     def __init__(self, janela):
         self.buttons = Frame(janela)
@@ -63,8 +62,10 @@ class Calculator:
         self.buttonclear.grid(column=0, row=0, padx=5, pady=5)
 
 
-root = Tk()
+if __name__ == '__main__':
 
-Calculator(root)
+    root = Tk()
 
-root.mainloop()
+    Calculator(root)
+
+    root.mainloop()

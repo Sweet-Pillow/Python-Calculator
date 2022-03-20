@@ -9,40 +9,40 @@ class Calculator:
 
         self.display = Text(janela, width=13, height=2, font='Arial')
         self.display.tag_configure('justify-configuration', justify='right')
-        self.display.insert(END, '00')
-        self.display.tag_add('justify-configuration', '1.0')
+        self.display.insert('0.0', '00')
+        self.display.tag_add('justify-configuration', '0.0')
         self.display.grid(column=0, row=0, columnspan=4)
 
         ##Number janela
 
-        self.button1 = Button(janela, text='1', font='Arial')
+        self.button1 = Button(janela, text='1', font='Arial', command=self.b1)
         self.button1.grid(column=0, row=4, padx=5, pady=5)
 
-        self.button2 = Button(janela, text='2', font='Arial')
+        self.button2 = Button(janela, text='2', font='Arial', command=self.b2)
         self.button2.grid(column=1, row=4, padx=5, pady=5)
 
-        self.button3 = Button(janela, text='3', font='Arial')
+        self.button3 = Button(janela, text='3', font='Arial', command=self.b3)
         self.button3.grid(column=2, row=4, padx=5, pady=5)
 
-        self.button4 = Button(janela, text='4', font='Arial')
+        self.button4 = Button(janela, text='4', font='Arial', command=self.b4)
         self.button4.grid(column=0, row=3, padx=5, pady=5)
 
-        self.button5 = Button(janela, text='5', font='Arial')
+        self.button5 = Button(janela, text='5', font='Arial', command=self.b5)
         self.button5.grid(column=1, row=3, padx=5, pady=5)
 
-        self.button6 = Button(janela, text='6', font='Arial')
+        self.button6 = Button(janela, text='6', font='Arial', command=self.b6)
         self.button6.grid(column=2, row=3, padx=5, pady=5)
 
-        self.button7 = Button(janela, text='7', font='Arial')
+        self.button7 = Button(janela, text='7', font='Arial', command=self.b7)
         self.button7.grid(column=0, row=2, padx=5, pady=5)
 
-        self.button8 = Button(janela, text='8', font='Arial')
+        self.button8 = Button(janela, text='8', font='Arial', command=self.b8)
         self.button8.grid(column=1, row=2, padx=5, pady=5)
 
-        self.button9 = Button(janela, text='9', font='Arial')
+        self.button9 = Button(janela, text='9', font='Arial', command=self.b9)
         self.button9.grid(column=2, row=2, padx=5, pady=5)
 
-        self.button0 = Button(janela, text='0', font='Arial')
+        self.button0 = Button(janela, text='0', font='Arial', command=self.b0)
         self.button0.grid(column=0, row=5, columnspan=2, padx=5, pady=5, sticky=EW)
 
         ##Operation janela
@@ -67,6 +67,61 @@ class Calculator:
 
         self.buttonclear = Button(janela, text='C', font='Arial')
         self.buttonclear.grid(column=0, row=1, padx=5, pady=5)
+
+    def b1(self):
+        self.emptyverification()
+        self.display.insert(END, '1')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b2(self):
+        self.emptyverification()
+        self.display.insert(END, '2')
+        self.display.tag_add('justify-configuration', '0.0')
+    
+    def b3(self):
+        self.emptyverification()
+        self.display.insert(END, '3')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b4(self):
+        self.emptyverification()
+        self.display.insert(END, '4')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b5(self):
+        self.emptyverification()
+        self.display.insert(END, '5')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b6(self):
+        self.emptyverification()
+        self.display.insert(END, '6')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b7(self):
+        self.emptyverification()
+        self.display.insert(END, '7')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b8(self):
+        self.emptyverification()
+        self.display.insert(END, '8')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b9(self):
+        self.emptyverification()
+        self.display.insert(END, '9')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def b0(self):
+        self.emptyverification()
+        self.display.insert(END, '0')
+        self.display.tag_add('justify-configuration', '0.0')
+
+    def emptyverification(self):
+        print(f'{self.display.get("1.0", "end-1c")}')
+        if self.display.get("1.0", "end-1c") == '00':
+            self.display.delete(1.0, END)
 
 
 if __name__ == '__main__':

@@ -7,7 +7,6 @@ class Calculator:
     def __init__(self, janela):
         
         janela.title('Calculator 5000')
-        #janela.geometry('135x255')
         janela.resizable(False, False)
         janela.attributes('-toolwindow', True)
 
@@ -75,54 +74,64 @@ class Calculator:
         self.buttonclear.grid(column=0, row=1, padx=5, pady=5)
 
     def b1(self):
-        self.empty_verification()
-        self.display.insert(END, '1')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '1')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b2(self):
-        self.empty_verification()
-        self.display.insert(END, '2')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '2')
+            self.display.tag_add('justify-configuration', '0.0')
     
     def b3(self):
-        self.empty_verification()
-        self.display.insert(END, '3')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '3')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b4(self):
-        self.empty_verification()
-        self.display.insert(END, '4')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '4')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b5(self):
-        self.empty_verification()
-        self.display.insert(END, '5')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '5')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b6(self):
-        self.empty_verification()
-        self.display.insert(END, '6')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '6')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b7(self):
-        self.empty_verification()
-        self.display.insert(END, '7')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '7')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b8(self):
-        self.empty_verification()
-        self.display.insert(END, '8')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '8')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b9(self):
-        self.empty_verification()
-        self.display.insert(END, '9')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '9')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b0(self):
-        self.empty_verification()
-        self.display.insert(END, '0')
-        self.display.tag_add('justify-configuration', '0.0')
+        if self.full_line_verification():
+            self.empty_verification()
+            self.display.insert(END, '0')
+            self.display.tag_add('justify-configuration', '0.0')
 
     def b_multiplication(self):
         if self.display.get("1.0", "end-1c") != '00' and self.display.get("1.0", "end-1c")[-1] != '*' and self.display.get("1.0", "end-1c")[-1] not in ['+','-','/',',']:
@@ -165,8 +174,28 @@ class Calculator:
         if self.display.get("1.0", "end-1c") == '00':
             self.display.delete(1.0, END)
     
+    def full_line_verification(self):
+        if len(self.display.get("1.0", "end-1c")) < 13:
+            return True
+    
     def b_equal(self):
-        print(self.display.get("1.0", "end-1c"))
+
+        self.result = self.display.get("1.0", "end-1c").replace(',', '.')
+        if self.result[-1] in ['*', '/', '+', '-']:
+            self.result = self.result[:-1]
+
+        try:    
+            eval(self.result)
+        except ZeroDivisionError:
+            print('ZeroDivision')
+        else:
+            self.result = self.display.get("1.0", "end-1c").replace(',', '.')    
+            if self.result[-1] in ['*', '/', '+', '-']:
+                self.result = self.result[:-1]
+            
+            print(f'Result = {self.result}')
+            self.display.insert(END, '\n=' + f'{eval(self.result):.2f}'.replace('.', ','))
+            self.display.tag_add('justify-configuration', '0.0', 'end')
 
     def clear_display(self):
         self.display.delete(1.0, END)

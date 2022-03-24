@@ -1,6 +1,7 @@
 from cgitb import text
 from tkinter import *
 from tkinter import font
+from unittest import result
 
 
 class Calculator:
@@ -11,6 +12,8 @@ class Calculator:
         janela.attributes('-toolwindow', True)
 
         self.default_font = font.Font(family='Consolas', weight='bold')
+        self.expression = ''
+        self.result = ''
 
         self.display = Text(janela, width=13, height=2, font=self.default_font)
         self.display.tag_configure('justify-configuration', justify='right')
@@ -179,28 +182,34 @@ class Calculator:
             return True
     
     def b_equal(self):
+        if self.result == '':
+            self.expression = self.display.get("1.0", "end-1c").replace(',', '.')
 
-        self.result = self.display.get("1.0", "end-1c").replace(',', '.')
-        if self.result[-1] in ['*', '/', '+', '-']:
-            self.result = self.result[:-1]
+        else:
+            self.expression = self.display.get("1.0", "end-1c").replace(',', '.')
+            self.expression = self.expression[:(self.expression.index('=') - 1)]
+
+        print(f'Expressao = {self.expression}')
+        print(f'Tamanho result = {len(self.result)}')
+        if self.expression[-1] in ['*', '/', '+', '-']:
+            self.expression = self.expression[:-1]
+            
 
         try:    
-            eval(self.result)
+            eval(self.expression)
         except ZeroDivisionError:
             print('ZeroDivision')
         else:
-            self.result = self.display.get("1.0", "end-1c").replace(',', '.')    
-            if self.result[-1] in ['*', '/', '+', '-']:
-                self.result = self.result[:-1]
-            
-            print(f'Result = {self.result}')
-            self.display.insert(END, '\n=' + f'{eval(self.result):.2f}'.replace('.', ','))
+            self.result = f'{eval(self.expression):.2f}'
+            self.display.insert(END, '\n=' + f'{self.result}'.replace('.', ','))
             self.display.tag_add('justify-configuration', '0.0', 'end')
 
     def clear_display(self):
         self.display.delete(1.0, END)
         self.display.insert(END, '00')
         self.display.tag_add('justify-configuration', '0.0')
+        self.result = ''
+        self.expression = ''
 
 if __name__ == '__main__':
 

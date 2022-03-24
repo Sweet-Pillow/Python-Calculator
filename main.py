@@ -1,7 +1,7 @@
 from cgitb import text
+from cmath import e
 from tkinter import *
 from tkinter import font
-from unittest import result
 
 
 class Calculator:
@@ -77,86 +77,131 @@ class Calculator:
         self.buttonclear.grid(column=0, row=1, padx=5, pady=5)
 
     def b1(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '1')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b2(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '2')
             self.display.tag_add('justify-configuration', '0.0')
     
     def b3(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '3')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b4(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '4')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b5(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '5')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b6(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '6')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b7(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '7')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b8(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '8')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b9(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '9')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b0(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.full_line_verification():
             self.empty_verification()
             self.display.insert(END, '0')
             self.display.tag_add('justify-configuration', '0.0')
 
     def b_multiplication(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.display.get("1.0", "end-1c") != '00' and self.display.get("1.0", "end-1c")[-1] != '*' and self.display.get("1.0", "end-1c")[-1] not in ['+','-','/',',']:
             self.display.insert(END, '*')
             self.display.tag_add('justify-configuration', '0.0')
     
     def b_plus(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.display.get("1.0", "end-1c") != '00' and self.display.get("1.0", "end-1c")[-1] != '+' and self.display.get("1.0", "end-1c")[-1] not in ['*','-','/',',']:
             self.display.insert(END, '+')
             self.display.tag_add('justify-configuration', '0.0')
     
     def b_minus(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.display.get("1.0", "end-1c") != '00' and self.display.get("1.0", "end-1c")[-1] != '-' and self.display.get("1.0", "end-1c")[-1] not in ['+','*','/',',']:
             self.display.insert(END, '-')
             self.display.tag_add('justify-configuration', '0.0')
     
     def b_division(self):
+        if self.result != '':
+            self.clear_display()
+
         if self.display.get("1.0", "end-1c") != '00' and self.display.get("1.0", "end-1c")[-1] != '/' and self.display.get("1.0", "end-1c")[-1] not in ['+','-','*',',']:
             self.display.insert(END, '/')
             self.display.tag_add('justify-configuration', '0.0')
     
     def b_comma(self):
+        if self.result != '':
+            self.clear_display()
+            
         if self.display.get("1.0", "end-1c") != '00' and self.display.get("1.0", "end-1c")[-1] != ',' and self.display.get("1.0", "end-1c")[-1].isnumeric():
             self.status_comma = True
             for j in reversed(self.display.get("1.0", "end-1c")):
@@ -173,7 +218,6 @@ class Calculator:
                 self.status_comma = True
 
     def empty_verification(self):
-        print(f'{self.display.get("1.0", "end-1c")}')
         if self.display.get("1.0", "end-1c") == '00':
             self.display.delete(1.0, END)
     
@@ -200,7 +244,12 @@ class Calculator:
         except ZeroDivisionError:
             print('ZeroDivision')
         else:
-            self.result = f'{eval(self.expression):.2f}'
+            if len(self.result) > 11:
+                self.result = f'{eval(self.expression):e}'
+                
+            else:
+                self.result = f'{eval(self.expression):.2f}'
+
             self.display.insert(END, '\n=' + f'{self.result}'.replace('.', ','))
             self.display.tag_add('justify-configuration', '0.0', 'end')
 
